@@ -1,6 +1,6 @@
 # My Agent - AI Agent System
 
-Welcome to **My Agent**, a comprehensive knowledge base and prompt library for building, managing, and collaborating with AI Agents.
+Welcome to **My TRAE-Agent**, a comprehensive knowledge base and prompt library for building, managing, and collaborating with AI Agents.
 
 This repository defines a structured ecosystem of AI Agents designed to handle various complex tasks, from software development to teaching and even "manufacturing" other agents.
 
