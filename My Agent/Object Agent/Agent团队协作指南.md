@@ -36,7 +36,62 @@
 
 ## 3. 标准作业流程 (Standard Operating Procedure)
 
-以下是项目从 0 到 1 的完整流转链路：
+以下是项目从 0 到 1 的完整流转链路图：
+
+```mermaid
+graph TD
+    User([User]) -->|Start Project| Lead[Project-Lead]
+    Lead -->|Init Logs| Logs[(Project Logs)]
+    Lead -->|Recommend| PM[PM-Agent]
+    
+    subgraph "Phase 1: Initiation & Requirements"
+        PM -->|Analyze & Write| PRD[docs/prd.md]
+        PM -->|Recommend| Design[Design-Agent]
+    end
+    
+    subgraph "Phase 2: Design & Architecture"
+        Design -->|Read| PRD
+        Design -->|Design UI/UX| Spec[docs/design_spec.md]
+        Design -->|Recommend| Arch[Arch-Agent]
+        
+        Arch -->|Read| PRD
+        Arch -->|Read| Spec
+        Arch -->|Design System| ArchDoc[docs/architecture.md & api.md]
+        Arch -->|Recommend| Dev[Dev-Agent]
+    end
+    
+    subgraph "Phase 3: Development & Verification"
+        Dev -->|Read| ArchDoc
+        Dev -->|Code & Unit Test| Code[Source Code]
+        Dev -->|Recommend| QA[QA-Agent]
+        
+        QA -->|Test| Code
+        QA -->|Found Bug?| Bug{Bug?}
+        Bug -->|Yes| Dev
+        Bug -->|No| Security[Security-Agent]
+    end
+    
+    subgraph "Phase 4: Security & Audit"
+        Security -->|Audit| Code
+        Security -->|Found Vulnerability?| Vuln{Vuln?}
+        Vuln -->|Yes| Dev
+        Vuln -->|No| Auditor[Auditor-Agent]
+        
+        Auditor -->|Final Review| Report[docs/audit_report.md]
+        Auditor -->|Pass?| Pass{Pass?}
+        Pass -->|No| Lead
+        Pass -->|Yes| End([Project Complete])
+    end
+
+    %% State Transparency
+    PM -.->|Update| Logs
+    Design -.->|Update| Logs
+    Arch -.->|Update| Logs
+    Dev -.->|Update| Logs
+    QA -.->|Update| Logs
+    Security -.->|Update| Logs
+    Auditor -.->|Update| Logs
+```
 
 ### 阶段一：立项与需求 (Initiation & Requirements)
 
